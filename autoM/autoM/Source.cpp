@@ -16,15 +16,16 @@ int main() {
     //virtual key codes https://docs.microsoft.com/es-es/windows/win32/inputdev/virtual-key-codes?redirectedfrom=MSDN
     ip.ki.wVk = 0x4D; // virtual-key code for the "m" key
  
-    std::chrono::system_clock::time_point a = std::chrono::system_clock::now();
+    std::cout << "WOOOOLAAAZ" << std::endl;
+    std::chrono::system_clock::time_point a;
     std::chrono::system_clock::time_point b = std::chrono::system_clock::now();
 
-    std::cout << "WOOOOLAAAZ" << std::endl;
+    std::chrono::duration<double, std::milli> work_time;
     while (true)
     {
             // Maintain designated frequency of 20 Hz (50 ms per frame)
             a = std::chrono::system_clock::now();
-            std::chrono::duration<double, std::milli> work_time = a - b;
+            work_time = a - b;
 
             if (work_time.count() < 50.0)
             {
@@ -34,7 +35,7 @@ int main() {
             }
 
             b = std::chrono::system_clock::now();
-            std::chrono::duration<double, std::milli> sleep_time = b - a;
+           
 
             // Your code here
             ip.ki.dwFlags = 0; // dwflags 0 = key pressed
@@ -43,7 +44,6 @@ int main() {
             // Release 
             ip.ki.dwFlags = KEYEVENTF_KEYUP; // KEYEVENTF_KEYUP for key release
             SendInput(1, &ip, sizeof(INPUT));
-            //printf("Time: %f \n", (work_time + sleep_time).count());
     }
     return 0;
 }
